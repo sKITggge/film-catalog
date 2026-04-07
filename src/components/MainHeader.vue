@@ -11,38 +11,37 @@ export default {
     IconMagnifyingGlass,
     IconArrowDown,
   },
+  data() {
+    return {
+      links: ["All", "Movie", "Series"],
+    };
+  },
 };
 </script>
 
 <template>
   <header>
-    <nav class="header-links">
+    <nav class="header__links">
       <ul>
-        <li>
-          <a href="#">All</a>
+        <li v-for="item in links" :key="item">
+          <a href="#">{{ item }}</a>
         </li>
-        <li>
-          <a href="#">Movie</a>
-        </li>
-        <li>
-          <a href="#">Series</a>
-        </li>
-        <li class="header-links-dropdown">
+        <li class="header__links-dropdown">
           <a href="#">Genres</a>
-          <IconArrowDown></IconArrowDown>
+          <IconArrowDown />
         </li>
       </ul>
     </nav>
-    <div class="header-side-links">
-      <div class="header-search">
-        <IconMagnifyingGlass></IconMagnifyingGlass>
+    <div class="header__side-links">
+      <div class="header__search">
+        <IconMagnifyingGlass />
         <input type="text" placeholder="Search the series, movies ..." />
-        <IconOptions></IconOptions>
+        <IconOptions />
       </div>
-      <button class="header-notifications">
-        <IconNotifications></IconNotifications>
+      <button class="header__notifications">
+        <IconNotifications />
       </button>
-      <a class="header-profile-link" href="#">
+      <a class="header__profile-link" href="#">
         <span>U</span>
       </a>
     </div>
@@ -56,22 +55,21 @@ header {
   justify-content: space-between;
   padding: var(--space-5) var(--space-3) var(--space-4);
   margin-bottom: var(--space-3);
-  z-index: 50;
 }
 
-.header-links ul {
+.header__links ul {
   display: flex;
   gap: var(--space-4);
   list-style: none;
   padding: 0;
 }
 
-.header-links svg {
+.header__links svg {
   width: 18px;
   height: 18px;
 }
 
-.header-links a {
+.header__links a {
   color: inherit;
   text-decoration: none;
   font-size: 20px;
@@ -80,42 +78,42 @@ header {
   transition: color 0.2s ease-in;
 }
 
-.header-links li {
+.header__links li {
   padding-bottom: var(--space-1);
   border-bottom: 1px solid var(--color-neutral-90);
 
   transition: border-color 0.2s ease-in;
 }
 
-.header-links li:hover {
+.header__links li:hover {
   border-bottom: 1px solid var(--color-primary-50);
   color: var(--color-primary-50);
 }
 
-.header-links-dropdown {
+.header__links-dropdown {
   display: flex;
   align-items: center;
   gap: var(--space-1);
 }
 
-.header-links-dropdown svg {
+.header__links-dropdown svg {
   stroke: var(--color-white);
   transition: fill 0.2s ease-in, transform 0.2s ease-in-out;
 }
 
-.header-links-dropdown:hover svg {
+.header__links-dropdown:hover svg {
   stroke: var(--color-primary-50);
   transform: rotate(180deg);
 }
 
-.header-side-links {
+.header__side-links {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
 }
 
-.header-search {
+.header__search {
   display: flex;
   align-items: center;
   gap: var(--space-1);
@@ -126,41 +124,41 @@ header {
   background: #111111;
 }
 
-.header-search svg {
+.header__search svg {
   width: 22px;
   height: 22px;
   fill: var(--color-white);
 }
 
-.header-search input {
+.header__search input {
   color: inherit;
   background: none;
   border: none;
   min-width: 29ch;
 }
 
-.header-search input:focus {
+.header__search input:focus {
   outline: none;
 }
 
-.header-notifications {
+.header__notifications {
   border: none;
   background: none;
   cursor: pointer;
 }
 
-.header-notifications svg {
+.header__notifications svg {
   width: 28px;
   height: 28px;
   fill: var(--color-white);
   transition: fill 0.2s ease-in;
 }
 
-.header-notifications:hover svg {
+.header__notifications:hover svg {
   fill: var(--color-primary-50);
 }
 
-.header-profile-link {
+.header__profile-link {
   width: 48px;
   height: 48px;
 
