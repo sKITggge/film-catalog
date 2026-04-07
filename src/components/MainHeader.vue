@@ -23,7 +23,10 @@ export default {
   <header>
     <nav class="header__links">
       <ul>
-        <li v-for="item in links" :key="item">
+        <li
+          v-for="item in links"
+          :key="item"
+        >
           <a href="#">{{ item }}</a>
         </li>
         <li class="header__links-dropdown">
