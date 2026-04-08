@@ -35,15 +35,18 @@ export default {
         </li>
       </ul>
     </nav>
+
     <div class="header__side-links">
       <div class="header__search">
         <IconMagnifyingGlass />
         <input type="text" placeholder="Search the series, movies ..." />
         <IconOptions />
       </div>
+
       <button class="header__notifications">
         <IconNotifications />
       </button>
+
       <a class="header__profile-link" href="#">
         <span>U</span>
       </a>
