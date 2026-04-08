@@ -19,19 +19,27 @@ export default {
 
 <template>
   <aside class="sidebar">
-    <a href="/">
-      <img class="sidebar__logo" src="../assets/logo.svg" alt="logo" />
-    </a>
+    <router-link to="/">
+      <img
+        class="sidebar__logo"
+        src="../assets/logo.svg"
+        alt="logo"
+      />
+    </router-link>
 
     <h2 class="sidebar__title">Menu</h2>
 
     <nav>
       <ul class="sidebar__links">
-        <li class="sidebar__links_item" v-for="link in links" :key="link.href">
-          <a :href="link.href">
+        <li
+          class="sidebar__links_item"
+          v-for="link in links"
+          :key="link.label"
+        >
+          <router-link :to="link.href">
             <component class="sidebar__links_icon" :is="link.icon" />
             <span>{{ link.label }}</span>
-          </a>
+          </router-link>
         </li>
       </ul>
     </nav>
