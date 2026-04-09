@@ -12,6 +12,7 @@ const filmsData = [
     image: filmImage,
     altText: "Hotel Transylvania",
     rating: 7,
+    isFavourite: false,
   },
   {
     filmId: 2,
@@ -20,6 +21,7 @@ const filmsData = [
     image: filmImage,
     altText: "Lucifer",
     rating: 8.1,
+    isFavourite: false,
   },
   {
     filmId: 3,
@@ -28,6 +30,7 @@ const filmsData = [
     image: filmImage,
     altText: "Gangs of London",
     rating: 8,
+    isFavourite: false,
   },
 ];
 
@@ -42,6 +45,15 @@ export default {
     MainSidebar,
     MainHeader,
   },
+  methods: {
+    toggleFavourite(filmId) {
+      const film = this.films.find((film) => film.filmId === filmId);
+
+      if (film) {
+        film.isFavourite = !film.isFavourite;
+      }
+    },
+  },
 };
 </script>
 
@@ -52,6 +64,7 @@ export default {
       <MainHeader />
       <main class="film-container">
         <FilmCard
+          @toggleFavourite="toggleFavourite"
           v-for="film in films"
           :key="film.filmId"
           :film="film"

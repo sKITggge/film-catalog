@@ -34,8 +34,14 @@ export default {
       {{ formattedRating }} <span class="card__rating-caption">/ 10</span>
     </div>
     <div class="card__favourite-wrapper">
-      <button class="card__favourite-button">
-        <IconLike class="card__favourite-icon" />
+      <button
+        v-on:click.stop.prevent="$emit('toggleFavourite', film.filmId)"
+        class="card__favourite-button"
+      >
+        <IconLike
+          class="card__favourite-icon"
+          :class="{ favourite: film.isFavourite }"
+        />
       </button>
     </div>
     <div class="card__info">
@@ -119,10 +125,15 @@ export default {
   width: var(--space-2);
   height: var(--space-2);
   fill: var(--color-neutral-10);
+  transition: fill 0.15s ease-in;
 }
 
 .card__favourite-button:hover {
   background-color: var(--color-neutral-50);
+}
+
+.favourite {
+  fill: #f64e34;
 }
 
 .card__info {
