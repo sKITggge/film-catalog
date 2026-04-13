@@ -1,7 +1,8 @@
 <script>
 import IconStar from "@/components/icons/IconStar.vue";
 import IconLike from "@/components/icons/IconLike.vue";
-import { capitalize, formattedRating } from "@/filters";
+import { formattedRating } from "@/filters";
+import { capitalize } from "@/utils";
 
 export default {
   components: { IconStar, IconLike },
