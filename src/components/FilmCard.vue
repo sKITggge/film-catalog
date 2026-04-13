@@ -1,29 +1,32 @@
 <script>
 import IconStar from "@/components/icons/IconStar.vue";
 import IconLike from "@/components/icons/IconLike.vue";
+import { capitalize, formattedRating } from "@/filters";
 
 export default {
   components: { IconStar, IconLike },
   props: {
-    film: Object,
+    film: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {};
   },
   computed: {
-    formattedRating() {
-      return this.film.rating.toFixed(1).toString();
-    },
     formattedGenres() {
-      const capitalized = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-      return this.film.genres.map((g) => capitalized(g)).join(", ");
+      return this.film?.genres.map((g) => capitalize(g)).join(", ") ?? "";
     },
+  },
+  filters: {
+    formattedRating,
   },
 };
 </script>
 
 <template>
-  <router-link :to="'films/' + film.filmId" class="card">
+  <router-link :to="{ name: 'film', params: { id: film.filmId } }" class="card">
     <img
       class="card__img"
       :src="film.image"
@@ -31,11 +34,12 @@ export default {
     />
     <div class="card__rating">
       <IconStar class="card__rating-star" />
-      {{ formattedRating }} <span class="card__rating-caption">/ 10</span>
+      {{ film.rating | formattedRating }}
+      <span class="card__rating-caption">/ 10</span>
     </div>
     <div class="card__favourite-wrapper">
       <button
-        v-on:click.stop.prevent="$emit('toggleFavourite', film.filmId)"
+        @:click.stop.prevent="$emit('toggleFavourite', film.filmId)"
         class="card__favourite-button"
       >
         <IconLike

@@ -47,11 +47,11 @@ export default {
   },
   methods: {
     toggleFavourite(filmId) {
-      const film = this.films.find((film) => film.filmId === filmId);
-
-      if (film) {
-        film.isFavourite = !film.isFavourite;
-      }
+      this.films = this.films.map((film) => {
+        return film.filmId === filmId
+          ? { ...film, isFavourite: !film.isFavourite }
+          : film;
+      });
     },
   },
 };
