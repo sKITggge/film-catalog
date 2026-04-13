@@ -15,8 +15,8 @@ export default {
     return {
       links: [
         { label: "All", href: "/" },
-        { label: "Movie", href: "/" },
-        { label: "Series", href: "/" },
+        { label: "Movie", href: "#" },
+        { label: "Series", href: "#" },
       ],
       genres: [
         "Comedy",
@@ -48,7 +48,12 @@ export default {
             v-for="item in links"
             :key="item.label"
           >
-            <router-link class="header__links-item" :to="item.href">
+            <router-link
+              class="header__links-item"
+              active-class="header__links-active"
+              :to="item.href"
+              exact
+            >
               {{ item.label }}
             </router-link>
           </li>
@@ -80,18 +85,11 @@ export default {
         </a>
       </div>
     </div>
+
     <ul
       class="header__genres"
       v-if="showGenres"
     >
-      <li>
-        <router-link
-          class="header__genres-item"
-          :to="{ path: '/', query: {} }"
-        >
-          All
-        </router-link>
-      </li>
       <li
         v-for="genre in genres"
         :key="genre"
@@ -138,18 +136,19 @@ header {
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
-  transition: color 0.2s ease-in;
   line-height: 1.4;
-}
 
-.header__links li {
   padding-bottom: var(--space-1);
   border-bottom: 1px solid var(--color-neutral-90);
-
-  transition: border-color 0.2s ease-in;
+  transition: border-color 0.2s ease-in, color 0.2s ease-in;
 }
 
-.header__links li:hover {
+.header__links-item:hover {
+  border-bottom: 1px solid var(--color-primary-50);
+  color: var(--color-primary-50);
+}
+
+.header__links-active {
   border-bottom: 1px solid var(--color-primary-50);
   color: var(--color-primary-50);
 }
@@ -159,8 +158,8 @@ header {
   align-items: center;
   gap: var(--space-1);
   border: none;
+  border-bottom: 1px solid var(--color-neutral-90);
   background-color: transparent;
-  padding: 0;
 }
 
 .header__genres-dropdown svg {
