@@ -13,54 +13,111 @@ export default {
   },
   data() {
     return {
-      links: ["All", "Movie", "Series"],
+      links: [
+        { label: "All", href: "/" },
+        { label: "Movie", href: "/" },
+        { label: "Series", href: "/" },
+      ],
+      genres: [
+        "Comedy",
+        "Drama",
+        "Historical",
+        "Action",
+        "Lover",
+        "Animation",
+        "Imaginary",
+        "Criminal",
+      ],
+      showGenres: false,
     };
+  },
+  methods: {
+    toggleShowGenres: function () {
+      this.showGenres = !this.showGenres;
+    },
   },
 };
 </script>
 
 <template>
   <header>
-    <nav class="header__links">
-      <ul>
-        <li
-          v-for="item in links"
-          :key="item"
-        >
-          <a href="#">{{ item }}</a>
-        </li>
-        <li class="header__links-dropdown">
-          <a href="#">Genres</a>
-          <IconArrowDown />
-        </li>
-      </ul>
-    </nav>
+    <div class="wrapper">
+      <nav class="header__links">
+        <ul>
+          <li
+            v-for="item in links"
+            :key="item.label"
+          >
+            <router-link class="header__links-item" :to="item.href">
+              {{ item.label }}
+            </router-link>
+          </li>
+          <li>
+            <button
+              @click="toggleShowGenres"
+              class="header__genres-dropdown header__links-item"
+            >
+              <span>Genres</span>
+              <IconArrowDown />
+            </button>
+          </li>
+        </ul>
+      </nav>
 
-    <div class="header__side-links">
-      <div class="header__search">
-        <IconMagnifyingGlass />
-        <input type="text" placeholder="Search the series, movies ..." />
-        <IconOptions />
+      <div class="header__side-links">
+        <div class="header__search">
+          <IconMagnifyingGlass />
+          <input type="text" placeholder="Search the series, movies ..." />
+          <IconOptions />
+        </div>
+
+        <button class="header__notifications">
+          <IconNotifications />
+        </button>
+
+        <a class="header__profile-link" href="#">
+          <span>U</span>
+        </a>
       </div>
-
-      <button class="header__notifications">
-        <IconNotifications />
-      </button>
-
-      <a class="header__profile-link" href="#">
-        <span>U</span>
-      </a>
     </div>
+    <ul
+      class="header__genres"
+      v-if="showGenres"
+    >
+      <li>
+        <router-link
+          class="header__genres-item"
+          :to="{ path: '/', query: {} }"
+        >
+          All
+        </router-link>
+      </li>
+      <li
+        v-for="genre in genres"
+        :key="genre"
+      >
+        <router-link
+          class="header__genres-item"
+          :class="{ 'header__genres-item--active': $route.query.genre === genre }"
+          :to="{ path: '/', query: { genre: genre } }"
+        >
+          {{ genre }}
+        </router-link>
+      </li>
+    </ul>
   </header>
 </template>
 
 <style scoped>
 header {
+  padding: var(--space-5) var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-5) var(--space-3) var(--space-4);
-  margin-bottom: var(--space-3);
 }
 
 .header__links ul {
@@ -75,13 +132,14 @@ header {
   height: 18px;
 }
 
-.header__links a {
+.header__links-item {
   color: inherit;
   text-decoration: none;
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
   transition: color 0.2s ease-in;
+  line-height: 1.4;
 }
 
 .header__links li {
@@ -96,20 +154,57 @@ header {
   color: var(--color-primary-50);
 }
 
-.header__links-dropdown {
+.header__genres-dropdown {
   display: flex;
   align-items: center;
   gap: var(--space-1);
+  border: none;
+  background-color: transparent;
+  padding: 0;
 }
 
-.header__links-dropdown svg {
+.header__genres-dropdown svg {
   stroke: var(--color-white);
   transition: fill 0.2s ease-in, transform 0.2s ease-in-out;
 }
 
-.header__links-dropdown:hover svg {
+.header__genres-dropdown:hover svg {
   stroke: var(--color-primary-50);
   transform: rotate(180deg);
+}
+
+.header__genres {
+  display: flex;
+  list-style: none;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  padding: 0;
+}
+
+.header__genres-item {
+  color: var(--color-neutral-30);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 4px 6px;
+  cursor: pointer;
+  transition: color 0.2s ease-in;
+}
+
+.header__genres-item:hover {
+  color: var(--color-primary-40);
+}
+
+.header__genres-item--active {
+  border-radius: var(--space-1);
+  background-color: var(--color-primary-50);
+  color: var(--color-neutral-90);
+  transition: background-color 0.2s ease-in;
+}
+
+.header__genres-item--active:hover {
+  color: var(--color-neutral-90);
+  background-color: var(--color-primary-30);
 }
 
 .header__side-links {
