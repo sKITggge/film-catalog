@@ -1,5 +1,5 @@
 <script>
-import IconOptions from "@/components/icons/IconOptions.vue";
+import IconCross from "@/components/icons/IconCross.vue";
 import IconMagnifyingGlass from "@/components/icons/IconMagnifyingGlass.vue";
 import IconArrowDown from "@/components/icons/IconArrowDown.vue";
 import IconNotifications from "@/components/icons/IconNotifications.vue";
@@ -7,7 +7,7 @@ import IconNotifications from "@/components/icons/IconNotifications.vue";
 export default {
   components: {
     IconNotifications,
-    IconOptions,
+    IconCross,
     IconMagnifyingGlass,
     IconArrowDown,
   },
@@ -29,11 +29,28 @@ export default {
         "Criminal",
       ],
       showGenres: false,
+      search: "",
     };
   },
   methods: {
     toggleShowGenres: function () {
       this.showGenres = !this.showGenres;
+    },
+    handleSearch: function () {
+      if (this.search.trim() === "") {
+        return;
+      }
+
+      const query = { ...this.$route.query, search: this.search };
+      this.search = "";
+      this.$router.push({ path: "/", query });
+    },
+    clearSearch: function () {
+      this.search = "";
+    },
+    handleGenreFilter: function (genre) {
+      const query = { ...this.$route.query, genre };
+      return { path: "/", query };
     },
   },
 };
@@ -70,11 +87,24 @@ export default {
       </nav>
 
       <div class="header__side-links">
-        <div class="header__search">
+        <form
+          class="header__search"
+          @submit.prevent="handleSearch"
+        >
           <IconMagnifyingGlass />
-          <input type="text" placeholder="Search the series, movies ..." />
-          <IconOptions />
-        </div>
+          <input
+            type="text"
+            placeholder="Search the series, movies ..."
+            v-model="search"
+          />
+          <button
+            class="header__search-button"
+            type="button"
+            @click="clearSearch"
+          >
+            <IconCross />
+          </button>
+        </form>
 
         <button class="header__notifications">
           <IconNotifications />
@@ -96,8 +126,10 @@ export default {
       >
         <router-link
           class="header__genres-item"
-          :class="{ 'header__genres-item--active': $route.query.genre === genre }"
-          :to="{ path: '/', query: { genre: genre } }"
+          :class="{
+            'header__genres-item--active': $route.query.genre === genre,
+          }"
+          :to="handleGenreFilter(genre)"
         >
           {{ genre }}
         </router-link>
@@ -239,6 +271,22 @@ header {
 
 .header__search input:focus {
   outline: none;
+}
+
+.header__search-button {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.header__search-button svg {
+  width: 22px;
+  height: 22px;
+  transition: fill 0.2s ease-in;
+}
+
+.header__search-button:hover svg {
+  fill: var(--color-primary-50);
 }
 
 .header__notifications {
