@@ -40,7 +40,7 @@ export default {
     </div>
     <div class="card__favourite-wrapper">
       <button
-        @:click.stop.prevent="$emit('toggleFavourite', film.filmId)"
+        @click.stop.prevent="$emit('toggleFavourite', film.filmId)"
         class="card__favourite-button"
       >
         <IconLike

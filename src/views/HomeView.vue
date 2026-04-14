@@ -54,6 +54,16 @@ export default {
       });
     },
   },
+  computed: {
+    filteredFilms() {
+      const genre = this.$route.query.genre;
+      let result = this.films;
+      if (genre) {
+        result = this.films.filter((film) => film.genres.includes(genre));
+      }
+      return result;
+    },
+  },
 };
 </script>
 
@@ -65,7 +75,7 @@ export default {
       <main class="film-container">
         <FilmCard
           @toggleFavourite="toggleFavourite"
-          v-for="film in films"
+          v-for="film in filteredFilms"
           :key="film.filmId"
           :film="film"
         />

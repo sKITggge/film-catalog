@@ -8,7 +8,7 @@ export default {
   data() {
     return {
       links: [
-        { label: "Discover", href: "#", icon: IconDiscover },
+        { label: "Discover", href: "/", icon: IconDiscover },
         { label: "Watchlist", href: "#", icon: IconWatchlist },
         { label: "Artists", href: "#", icon: IconArtists },
       ],
@@ -36,7 +36,7 @@ export default {
           v-for="link in links"
           :key="link.label"
         >
-          <router-link :to="link.href">
+          <router-link :to="link.href" active-class="sidebar__link-active">
             <component class="sidebar__links_icon" :is="link.icon" />
             <span>{{ link.label }}</span>
           </router-link>
@@ -97,11 +97,17 @@ export default {
   color: var(--color-primary-60);
 }
 
-.sidebar__links_item:hover .sidebar__links_icon {
+.sidebar__links_item a.sidebar__link-active {
+  color: var(--color-primary-60);
+}
+
+.sidebar__links_item:hover .sidebar__links_icon,
+.sidebar__link-active .sidebar__links_icon {
   fill: var(--color-primary-60);
 }
 
-.sidebar__links_item::before {
+.sidebar__links_item::before,
+.sidebar__link-active::before {
   content: "";
   position: absolute;
   top: 0;
@@ -114,7 +120,8 @@ export default {
   transition: background-color 0.2s ease-in;
 }
 
-.sidebar__links_item:hover::before {
+.sidebar__links_item:hover::before,
+.sidebar__link-active::before {
   background-color: var(--color-primary-60);
 }
 
