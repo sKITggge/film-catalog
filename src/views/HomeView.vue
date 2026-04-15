@@ -3,6 +3,7 @@ import MainHeader from "@/components/MainHeader.vue";
 import MainSidebar from "@/components/MainSidebar.vue";
 import FilmCard from "@/components/FilmCard.vue";
 import filmImage from "@/assets/filmImage.png";
+import { capitalize } from "@/utils";
 
 const filmsData = [
   {
@@ -38,6 +39,7 @@ export default {
   data() {
     return {
       films: filmsData,
+      search: "",
     };
   },
   components: {
@@ -58,10 +60,28 @@ export default {
     filteredFilms() {
       const genre = this.$route.query.genre;
       let result = this.films;
+
       if (genre) {
         result = this.films.filter((film) => film.genres.includes(genre));
       }
+
+      if (this.search) {
+        result = result.filter((film) =>
+          film.title.toLowerCase().includes(this.search.toLowerCase())
+        );
+      }
       return result;
+    },
+  },
+  filters: {
+    capitalize: capitalize,
+  },
+  watch: {
+    "$route.query.search": {
+      handler(val) {
+        this.search = val;
+      },
+      immediate: true,
     },
   },
 };
@@ -72,19 +92,31 @@ export default {
     <MainSidebar />
     <div>
       <MainHeader />
-      <main class="film-container">
-        <FilmCard
-          @toggleFavourite="toggleFavourite"
-          v-for="film in filteredFilms"
-          :key="film.filmId"
-          :film="film"
-        />
+      <main class="wrapper">
+        <h2 class="search-title" v-if="search">
+          Search results for "{{ search | capitalize }}"
+        </h2>
+        <section class="film-container">
+          <FilmCard
+            @toggleFavourite="toggleFavourite"
+            v-for="film in filteredFilms"
+            :key="film.filmId"
+            :film="film"
+          />
+        </section>
       </main>
     </div>
   </div>
 </template>
 
 <style scoped>
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0 var(--space-4);
+}
+
 .container {
   display: grid;
   grid-template-columns: 1fr 6fr;
@@ -95,6 +127,11 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin: 0 var(--space-4);
+}
+
+.search-title {
+  font-size: var(--space-5);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
 }
 </style>
