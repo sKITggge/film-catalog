@@ -1,9 +1,20 @@
 <script>
+import { formatDate, formatTime } from "@/utils";
+import IconStar from "@/components/icons/IconStar.vue";
+
 export default {
+  components: { IconStar },
   props: {
     info: {
-      type: Array,
+      type: Object,
       required: true,
+    },
+  },
+  filters: {
+    formatDate,
+    formatTime,
+    formatNetworks(values) {
+      return values.join(", ");
     },
   },
 };
@@ -13,16 +24,54 @@ export default {
   <aside class="extra-info">
     <h3 class="extra-info__title">Information</h3>
     <ul class="extra-info__grid">
-      <li
-        class="extra-info__item"
-        v-for="info in info"
-        :key="info.title"
-      >
+      <li class="extra-info__item">
         <span class="extra-info__item-title">
-          <component class="extra-info__icon" :is="info.icon" />
-          {{ info.title }}
+          <IconStar class="extra-info__icon" />
+          Country
         </span>
-        <span>{{ info.value }}</span>
+        <span>{{ info.country }}</span>
+      </li>
+      <li class="extra-info__item">
+        <span class="extra-info__item-title">
+          <IconStar class="extra-info__icon" />
+          Release Date
+        </span>
+        <span>{{ info.releaseDate | formatDate }}</span>
+      </li>
+      <li class="extra-info__item">
+        <span class="extra-info__item-title">
+          <IconStar class="extra-info__icon" />
+          Language
+        </span>
+        <span>{{ info.language }}</span>
+      </li>
+      <li class="extra-info__item">
+        <span class="extra-info__item-title">
+          <IconStar class="extra-info__icon" />
+          Network
+        </span>
+        <span>{{ info.networks | formatNetworks }}</span>
+      </li>
+      <li class="extra-info__item">
+        <span class="extra-info__item-title">
+          <IconStar class="extra-info__icon" />
+          Director
+        </span>
+        <span>{{ info.director }}</span>
+      </li>
+      <li class="extra-info__item">
+        <span class="extra-info__item-title">
+          <IconStar class="extra-info__icon" />
+          Runtime
+        </span>
+        <span>{{ info.runtime | formatTime }}</span>
+      </li>
+      <li class="extra-info__item">
+        <span class="extra-info__item-title">
+          <IconStar class="extra-info__icon" />
+          Closed Caption
+        </span>
+        <span>{{ info.closedCaption }}</span>
       </li>
     </ul>
   </aside>

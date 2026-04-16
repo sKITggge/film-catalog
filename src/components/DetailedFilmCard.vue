@@ -1,6 +1,7 @@
 <script>
 import IconStar from "@/components/icons/IconStar.vue";
 import { formattedRating } from "@/filters";
+import { formatTime } from "@/utils";
 
 export default {
   components: { IconStar },
@@ -12,6 +13,7 @@ export default {
   },
   filters: {
     formattedRating,
+    formatTime,
   },
 };
 </script>
@@ -22,12 +24,14 @@ export default {
     <div class="film-info">
       <div class="film-info-header">
         <h1 class="film-info__title">{{ film.title }}</h1>
-        <span>({{ film.releaseYear - film.endYear }})</span>
+        <span>({{ film.releaseYear }} - {{ film.endYear || "" }})</span>
       </div>
       <ul class="film-info__list">
-        <li class="film-info__item">TV Series</li>
-        <li class="film-info__item">50m</li>
-        <li class="film-info__item">TV-MA</li>
+        <li class="film-info__item">{{ film.showType }}</li>
+        <li class="film-info__item">
+          {{ film.information.runtime | formatTime }}
+        </li>
+        <li class="film-info__item">{{ film.contentRating }}</li>
       </ul>
       <ul class="film-genres__list">
         <li

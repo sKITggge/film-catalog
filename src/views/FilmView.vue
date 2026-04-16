@@ -5,21 +5,20 @@ import { getFilmById } from "@/utils";
 
 export default {
   components: { FilmInfo, DetailedFilmCard },
-  computed: {
-    film() {
-      const filmId = this.$route.params.filmId;
-      return getFilmById(filmId);
-    },
+  data() {
+    return {
+      film: null,
+    };
   },
-  watch: {
-    film: {
-      handler(newFilm) {
-        if (!newFilm) {
-          this.$router.push('/404');
-        }
-      },
-      immediate: true,
-    },
+  beforeRouteEnter(to, from, next) {
+    const film = getFilmById(Number(to.params.filmId));
+    if (!film) {
+      next('/404');
+    } else {
+      next((vm) => {
+        vm.film = film;
+      });
+    }
   },
 };
 </script>
