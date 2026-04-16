@@ -1,42 +1,12 @@
 <script>
 import FilmCard from "@/components/FilmCard.vue";
-import filmImage from "@/assets/filmImage.png";
 import { capitalize } from "@/utils";
-
-const filmsData = [
-  {
-    filmId: 1,
-    title: "Hotel Transylvania",
-    genres: ["Animation", "Comedy"],
-    image: filmImage,
-    altText: "Hotel Transylvania",
-    rating: 7,
-    isFavourite: false,
-  },
-  {
-    filmId: 2,
-    title: "Lucifer",
-    genres: ["Crime", "Drama", "Fantasy"],
-    image: filmImage,
-    altText: "Lucifer",
-    rating: 8.1,
-    isFavourite: false,
-  },
-  {
-    filmId: 3,
-    title: "Gangs of London",
-    genres: ["Action", "Drama", "Crime"],
-    image: filmImage,
-    altText: "Gangs of London",
-    rating: 8,
-    isFavourite: false,
-  },
-];
+import { filmData } from "@/assets/mock-data";
 
 export default {
   data() {
     return {
-      films: filmsData,
+      films: filmData,
       search: "",
     };
   },

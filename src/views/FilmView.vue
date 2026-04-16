@@ -1,36 +1,58 @@
 <script>
-import filmImage from "@/assets/filmImage.png";
 import DetailedFilmCard from "@/components/DetailedFilmCard.vue";
+import FilmInfo from "@/components/FilmInfo.vue";
+import { getFilmById } from "@/utils";
 
 export default {
-  components: { DetailedFilmCard },
-  data() {
-    return {
-      film: {
-        filmId: 1,
-        title: "Hotel Transylvania",
-        genres: ["Animation", "Comedy"],
-        image: filmImage,
-        altText: "Hotel Transylvania",
-        description:
-          "The Targaryen dynasty is at the absolute apex of its power, " +
-          "with more than 10 dragons under their yoke. Most empires crumble from such heights. " +
-          "In the case of the Targaryens, their slow fall begins when King Viserys breaks with a " +
-          "century of tradition by naming his daughter Rhaenyra heir to the Iron Throne ...",
-        rating: 7,
-        releaseYear: "2022",
-        endYear: "",
-        isFavourite: false,
+  components: { FilmInfo, DetailedFilmCard },
+  computed: {
+    film() {
+      const filmId = this.$route.params.filmId;
+      return getFilmById(filmId);
+    },
+  },
+  watch: {
+    film: {
+      handler(newFilm) {
+        if (!newFilm) {
+          this.$router.push('/404');
+        }
       },
-    };
+      immediate: true,
+    },
   },
 };
 </script>
 
 <template>
-  <div>
+  <div v-if="film" class="container">
     <DetailedFilmCard :film="film" />
+    <FilmInfo :info="film.information" />
+    <div>
+      <h4 class="story-line__title">Story line:</h4>
+      <p class="story-line__content">
+        {{ film.description }}
+      </p>
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.story-line__title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: var(--space-1);
+}
+
+.story-line__content {
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 150%;
+}
+</style>

@@ -1,0 +1,70 @@
+import IconStar from "@/components/icons/IconStar.vue";
+import filmImage from "@/assets/filmImage.png";
+export const filmData = [
+  {
+    filmId: 1,
+    title: "Hotel Transylvania",
+    genres: ["Animation", "Comedy"],
+    image: filmImage,
+    altText: "Hotel Transylvania",
+    description:
+      "Dracula, the owner of a luxury hotel for monsters, tries to keep his daughter Mavis away from humans. But when a human tourist stumbles into the hotel, chaos and comedy ensue.",
+    information: [
+      { icon: IconStar, title: "Country", value: "United States" },
+      { icon: IconStar, title: "Release Date", value: "September 28, 2012" },
+      { icon: IconStar, title: "Language", value: "English" },
+      { icon: IconStar, title: "Network", value: "Sony Pictures" },
+      { icon: IconStar, title: "Director", value: "Genndy Tartakovsky" },
+      { icon: IconStar, title: "Runtime", value: "91m" },
+      { icon: IconStar, title: "Closed Caption", value: "English" },
+    ],
+    rating: 7,
+    releaseYear: "2012",
+    endYear: "",
+    isFavourite: false,
+  },
+  {
+    filmId: 2,
+    title: "Lucifer",
+    genres: ["Crime", "Drama", "Fantasy"],
+    image: filmImage,
+    altText: "Lucifer",
+    description:
+      "Lucifer Morningstar, bored from his life as the Lord of Hell, moves to Los Angeles to run a nightclub. There, he becomes a consultant to the LAPD, using his supernatural abilities to help solve crimes.",
+    information: [
+      { icon: IconStar, title: "Country", value: "United States" },
+      { icon: IconStar, title: "Release Date", value: "January 25, 2016" },
+      { icon: IconStar, title: "Language", value: "English" },
+      { icon: IconStar, title: "Network", value: "Fox / Netflix" },
+      { icon: IconStar, title: "Director", value: "Tom Kapinos" },
+      { icon: IconStar, title: "Runtime", value: "42-60m" },
+      { icon: IconStar, title: "Closed Caption", value: "English" },
+    ],
+    rating: 8.1,
+    releaseYear: "2016",
+    endYear: "",
+    isFavourite: false,
+  },
+  {
+    filmId: 3,
+    title: "Gangs of London",
+    genres: ["Action", "Drama", "Crime"],
+    image: filmImage,
+    altText: "Gangs of London",
+    description:
+      "When the head of a criminal organization is assassinated, the ensuing power struggle between rival gangs threatens to tear London apart. The dead man's son must take control and uncover the truth.",
+    information: [
+      { icon: IconStar, title: "Country", value: "United Kingdom" },
+      { icon: IconStar, title: "Release Date", value: "April 23, 2020" },
+      { icon: IconStar, title: "Language", value: "English" },
+      { icon: IconStar, title: "Network", value: "Sky Atlantic / AMC+" },
+      { icon: IconStar, title: "Director", value: "Gareth Evans" },
+      { icon: IconStar, title: "Runtime", value: "60m" },
+      { icon: IconStar, title: "Closed Caption", value: "English" },
+    ],
+    rating: 8,
+    releaseYear: "2020",
+    endYear: "",
+    isFavourite: false,
+  },
+];
