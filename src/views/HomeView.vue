@@ -1,52 +1,16 @@
 <script>
-import MainHeader from "@/components/MainHeader.vue";
-import MainSidebar from "@/components/MainSidebar.vue";
 import FilmCard from "@/components/FilmCard.vue";
-import filmImage from "@/assets/filmImage.png";
 import { capitalize } from "@/utils";
-
-const filmsData = [
-  {
-    filmId: 1,
-    title: "Hotel Transylvania",
-    genres: ["Animation", "Comedy"],
-    image: filmImage,
-    altText: "Hotel Transylvania",
-    rating: 7,
-    isFavourite: false,
-  },
-  {
-    filmId: 2,
-    title: "Lucifer",
-    genres: ["Crime", "Drama", "Fantasy"],
-    image: filmImage,
-    altText: "Lucifer",
-    rating: 8.1,
-    isFavourite: false,
-  },
-  {
-    filmId: 3,
-    title: "Gangs of London",
-    genres: ["Action", "Drama", "Crime"],
-    image: filmImage,
-    altText: "Gangs of London",
-    rating: 8,
-    isFavourite: false,
-  },
-];
+import { filmData } from "@/assets/mock-data";
 
 export default {
   data() {
     return {
-      films: filmsData,
+      films: filmData,
       search: "",
     };
   },
-  components: {
-    FilmCard,
-    MainSidebar,
-    MainHeader,
-  },
+  components: { FilmCard },
   methods: {
     toggleFavourite(filmId) {
       this.films = this.films.map((film) => {
@@ -88,41 +52,22 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <MainSidebar />
-    <div>
-      <MainHeader />
-      <main class="wrapper">
-        <h2 class="search-title" v-if="search">
-          Search results for "{{ search | capitalize }}"
-        </h2>
-        <section class="film-container">
-          <FilmCard
-            @toggleFavourite="toggleFavourite"
-            v-for="film in filteredFilms"
-            :key="film.filmId"
-            :film="film"
-          />
-        </section>
-      </main>
-    </div>
+  <div>
+    <h2 class="search-title" v-if="search">
+      Search results for "{{ search | capitalize }}"
+    </h2>
+    <section class="film-container">
+      <FilmCard
+        @toggleFavourite="toggleFavourite"
+        v-for="film in filteredFilms"
+        :key="film.filmId"
+        :film="film"
+      />
+    </section>
   </div>
 </template>
 
 <style scoped>
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  margin: 0 var(--space-4);
-}
-
-.container {
-  display: grid;
-  grid-template-columns: 1fr 6fr;
-  align-items: start;
-}
-
 .film-container {
   display: flex;
   flex-wrap: wrap;
