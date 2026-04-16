@@ -1,6 +1,4 @@
 <script>
-import MainHeader from "@/components/MainHeader.vue";
-import MainSidebar from "@/components/MainSidebar.vue";
 import FilmCard from "@/components/FilmCard.vue";
 import filmImage from "@/assets/filmImage.png";
 import { capitalize } from "@/utils";
@@ -42,11 +40,7 @@ export default {
       search: "",
     };
   },
-  components: {
-    FilmCard,
-    MainSidebar,
-    MainHeader,
-  },
+  components: { FilmCard },
   methods: {
     toggleFavourite(filmId) {
       this.films = this.films.map((film) => {
@@ -88,41 +82,22 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <MainSidebar />
-    <div>
-      <MainHeader />
-      <main class="wrapper">
-        <h2 class="search-title" v-if="search">
-          Search results for "{{ search | capitalize }}"
-        </h2>
-        <section class="film-container">
-          <FilmCard
-            @toggleFavourite="toggleFavourite"
-            v-for="film in filteredFilms"
-            :key="film.filmId"
-            :film="film"
-          />
-        </section>
-      </main>
-    </div>
+  <div>
+    <h2 class="search-title" v-if="search">
+      Search results for "{{ search | capitalize }}"
+    </h2>
+    <section class="film-container">
+      <FilmCard
+        @toggleFavourite="toggleFavourite"
+        v-for="film in filteredFilms"
+        :key="film.filmId"
+        :film="film"
+      />
+    </section>
   </div>
 </template>
 
 <style scoped>
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  margin: 0 var(--space-4);
-}
-
-.container {
-  display: grid;
-  grid-template-columns: 1fr 6fr;
-  align-items: start;
-}
-
 .film-container {
   display: flex;
   flex-wrap: wrap;

@@ -27,12 +27,11 @@ export default {
 </script>
 
 <template>
-  <router-link :to="{ name: 'film', params: { id: film.filmId } }" class="card">
-    <img
-      class="card__img"
-      :src="film.image"
-      :alt="film.altText"
-    />
+  <router-link
+    :to="{ name: 'film', params: { filmId: film.filmId } }"
+    class="card"
+  >
+    <img class="card__img" :src="film.image" :alt="film.altText" />
     <div class="card__rating">
       <IconStar class="card__rating-star" />
       {{ film.rating | formattedRating }}
