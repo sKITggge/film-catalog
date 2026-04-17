@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import FilmView from "@/views/FilmView.vue";
+import ActorsView from "@/views/ActorsView.vue";
 
 Vue.use(VueRouter);
 
@@ -18,6 +19,11 @@ const router = new VueRouter({
       path: "/film/:filmId",
       name: "film",
       component: FilmView,
+    },
+    {
+      path: "/actors",
+      name: "actors",
+      component: ActorsView,
     },
   ],
 });
