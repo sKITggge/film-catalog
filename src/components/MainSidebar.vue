@@ -10,7 +10,7 @@ export default {
       links: [
         { label: "Discover", href: "/", icon: IconDiscover },
         { label: "Watchlist", href: "#", icon: IconWatchlist },
-        { label: "Artists", href: "#", icon: IconArtists },
+        { label: "Artists", href: "/actors", icon: IconArtists },
       ],
     };
   },
@@ -31,12 +31,12 @@ export default {
 
     <nav>
       <ul class="sidebar__links">
-        <li
-          class="sidebar__links_item"
-          v-for="link in links"
-          :key="link.label"
-        >
-          <router-link :to="link.href" active-class="sidebar__link-active">
+        <li class="sidebar__links_item" v-for="link in links" :key="link.label">
+          <router-link
+            :to="link.href"
+            active-class="sidebar__link-active"
+            exact
+          >
             <component class="sidebar__links_icon" :is="link.icon" />
             <span>{{ link.label }}</span>
           </router-link>
