@@ -11,7 +11,7 @@ export default {
 
 <template>
   <router-link
-    :to="{ name: 'actors', params: { actorId: actor.actorId } }"
+    :to="{ name: 'actor', params: { actorId: actor.actorId } }"
     class="actor-card"
   >
     <img

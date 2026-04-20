@@ -25,6 +25,15 @@ const router = new VueRouter({
       name: "actors",
       component: ActorsView,
     },
+    {
+      path: "/actors/:actorId",
+      name: "actor",
+      component: {
+        render(h) {
+          return h("div", "Not implemented yet");
+        },
+      },
+    },
   ],
 });
 
