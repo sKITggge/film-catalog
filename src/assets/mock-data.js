@@ -74,3 +74,34 @@ export const filmData = [
     isFavourite: false,
   },
 ];
+
+export const actorsData = [
+  {
+    actorId: 1,
+    name: "Scott Rudin",
+    roles: ["Producer"],
+    image: filmImage,
+    moviesCount: 100,
+  },
+  {
+    actorId: 2,
+    name: "Tom Hanks",
+    roles: ["Actor", "Producer", "Writer"],
+    image: filmImage,
+    moviesCount: 49,
+  },
+  {
+    actorId: 3,
+    name: "Al Pacino",
+    roles: ["Actor", "Director", "Producer"],
+    image: filmImage,
+    moviesCount: 44,
+  },
+  {
+    actorId: 4,
+    name: "Julianne Moore",
+    roles: ["Actress", "Producer"],
+    image: filmImage,
+    moviesCount: 42,
+  },
+];
