@@ -1,26 +1,26 @@
 <script>
 import FilmCard from "@/components/FilmCard.vue";
 import { capitalize } from "@/utils";
-import { filmData } from "@/assets/mock-data";
 
 export default {
   data() {
     return {
-      films: filmData,
       search: "",
     };
   },
   components: { FilmCard },
   methods: {
     toggleFavourite(filmId) {
-      this.films = this.films.map((film) => {
-        return film.filmId === filmId
-          ? { ...film, isFavourite: !film.isFavourite }
-          : film;
-      });
+      this.$store.dispatch("toggleFavourite", filmId);
+    },
+    removeFilm(filmId) {
+      this.$store.dispatch("removeFilm", filmId);
     },
   },
   computed: {
+    films() {
+      return this.$store.getters.films;
+    },
     filteredFilms() {
       const genre = this.$route.query.genre;
       let result = this.films;
@@ -48,6 +48,9 @@ export default {
       immediate: true,
     },
   },
+  created() {
+    this.$store.dispatch("fetchFilms");
+  },
 };
 </script>
 
@@ -57,12 +60,22 @@ export default {
       Search results for "{{ search | capitalize }}"
     </h2>
     <section class="film-container">
-      <FilmCard
-        @toggleFavourite="toggleFavourite"
+      <div
+        class="film-item"
         v-for="film in filteredFilms"
         :key="film.filmId"
-        :film="film"
-      />
+      >
+        <FilmCard
+          @toggleFavourite="toggleFavourite"
+          :film="film"
+        />
+        <button
+          class="remove-button"
+          @click="removeFilm(film.filmId)"
+        >
+          Remove
+        </button>
+      </div>
     </section>
   </div>
 </template>
@@ -72,6 +85,21 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
+}
+
+.film-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.remove-button {
+  border: none;
+  border-radius: var(--space-1);
+  padding: var(--space-2);
+  background: var(--color-neutral-70);
+  color: white;
+  cursor: pointer;
 }
 
 .search-title {
